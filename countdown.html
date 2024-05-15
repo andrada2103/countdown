@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="countdown.css">
+</head>
+<body>
+    <div id="countdown">
+        <input type="date" id="dateInput">
+        <input type="time" id="timeInput">
+        <button onclick="startCountDown()">Start Countdown</button>
+    </div>
+    <h1>Countdown clock</h1>
+
+    <div id="clockdiv">
+        <div>
+            <span class="days"></span>
+            <div class="smalltext">Days</div>
+        </div>
+
+        <div>
+            <span class="hours"></span>
+            <div class="smalltext">Hours</div>
+        </div>
+
+        <div>
+            <span class="minutes"></span>
+            <div class="smalltext">Minutes</div>
+        </div>
+
+        <div>
+            <span class="seconds"></span>
+            <div class="smalltext">Seconds</div>
+        </div>
+    </div>
+
+    <h1 id="timeIsOver">Time is over!</h1> <!-- Mesajul "Time is over!" -->
+
+    <script>
+        var timeinterval;
+
+        function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.now();
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            console.log('Time remaining:', t);
+            console.log('Days:', days);
+            console.log('Hours:', hours);
+            console.log('Minutes:', minutes);
+            console.log('Seconds:', seconds);
+            debugger;
+            return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+            };
+        }
+
+        function initializeClock(id, endtime) {
+    var clock = document.getElementById('clockdiv');
+    var daysSpan = clock.querySelector('.days');
+    var hoursSpan = clock.querySelector('.hours');
+    var minutesSpan = clock.querySelector('.minutes');
+    var secondsSpan = clock.querySelector('.seconds');
+    var timeIsOverMsg = document.getElementById('timeIsOver');
+
+    if (!daysSpan || !hoursSpan || !minutesSpan || !secondsSpan || !timeIsOverMsg) {
+        console.error("One or more elements not found.");
+        return;
+    }
+
+    function updateClock() {
+        var t = getTimeRemaining(endtime);
+        if (t.total <= 0) {
+            clearInterval(timeinterval);
+            timeIsOverMsg.style.display = 'block';
+            return;
+        }
+
+        daysSpan.innerHTML = t.days;
+        hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+        minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+        secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+    }
+
+    updateClock();
+    timeinterval = setInterval(updateClock, 1000); 
+}
+
+
+        function startCountDown() {
+            var dateInput = document.getElementById('dateInput').value;
+            var timeInput = document.getElementById('timeInput').value;
+
+            console.log("Date input:", dateInput);
+            console.log("Time input:", timeInput);
+
+            if (!dateInput || !timeInput) {
+                console.error("Please provide both date and time.");
+                return;
+            }
+
+            var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+            var timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+
+            if (!dateRegex.test(dateInput) || !timeRegex.test(timeInput)) {
+                console.error("Invalid date or time format.");
+                return;
+            }
+
+            var dateTimeInput = dateInput + 'T' + timeInput;
+            var deadline = new Date(dateTimeInput);
+
+            console.log("Parsed deadline:", deadline);
+            initializeClock('clockdiv', deadline);
+
+            document.getElementById('countdown').style.display = 'none';
+
+        }
+    </script>
+</body>
+</html>

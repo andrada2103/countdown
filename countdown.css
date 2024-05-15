@@ -1,0 +1,68 @@
+body{
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+html{
+    background-color: rgb(225, 225, 225);
+}
+
+h1{
+    color: #975a5e;
+    font-weight: bold;
+    font-size: 50px;
+    margin: 125px 0px 20px;
+    text-shadow:
+    0 1px #808d93,
+    -1px 0 #cdd2d5,
+    -1px 2px #808d93,
+    -2px 1px #cdd2d5,
+    -2px 3px #808d93,
+    -3px 2px #cdd2d5,
+    -3px 4px #808d93,
+    -4px 3px #cdd2d5,
+    -4px 5px #808d93; 
+    
+}
+
+#clockdiv{
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(225, 225, 225);
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 55px;
+}
+
+#clockdiv > div{
+    padding: 50px;
+    border-radius: 7px;
+    background-color: #975a5e;
+    display: inline-block;
+}
+
+#clockdiv > div > span{
+    padding: 65px;
+    border-radius: 3px;
+    background-color: #000;
+    display: inline-block;
+}
+
+.smalltext{
+    padding-top: 5px;
+    font-size: 25px;
+}
+
+button, input{
+    height: 50px;
+    font-size: 16px;
+    color: #975a5e;
+    background-color: rgb(225, 225, 225);
+    border: 3px solid #975a5e;
+    font-weight: bold;
+}
+
+#timeIsOver {
+    display: none; 
+}
